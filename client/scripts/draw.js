@@ -5,10 +5,6 @@ window.onresize = function(){ location.reload(); }
 var ROOM = "0";
 var COLOR = "black";
 var RADIUS = 10;
-var prevcanvasX;
-var prevcanvasY;
-var postcanvasX;
-var postcanvasY;
 
 var socket, canvas, context;
 
@@ -41,16 +37,13 @@ function change_color_picker(picker)
 
 function get_draw(draw_data)
 {
-    /*draw_data["x"] = (draw_data["x"] / 1000.0) * canvas.width;
-    draw_data["y"] = (draw_data["y"] / 1000.0) * canvas.height;*/    
+    draw_data["x"] = (draw_data["x"] / 1000.0) * canvas.width;
+    draw_data["y"] = (draw_data["y"] / 1000.0) * canvas.height;    
     context.beginPath();
-    context.lineWidth = draw_data["radius"];
-    context.strokeStyle = draw_data["color"];
-    context.lineJoin = context.lineCap = 'round';
-    context.moveTo(prevcanvasX, prevcanvasY);
-    context.lineTo(postcanvasX, postcanvasY);
-    context.stroke();
-    
+    context.arc(draw_data["x"], draw_data["y"], draw_data["radius"], 0, 2 * Math.PI, false);
+    context.fillStyle = draw_data["color"];
+    context.fill();
+
 }
 
 function get_room(room_data)
@@ -92,15 +85,16 @@ function mouse_paint(event)
 
 
     var rect = canvas.getBoundingClientRect();
+    var x = event.x - rect.left;
+    var y = event.y - rect.top;
 
     socket.emit("message", {
         "room": ROOM,
         "command": "draw",
         "data": {            
-            "prex": prevcanvasX,
-            "prey": prevcanvasY,
-            "postx": postcanvasX,
-            "posty": postcanvasY,
+            "shape": "circle",
+            "x": 1000.0 * (x / rect.width),
+            "y": 1000.0 * (y / rect.height),
             "radius": RADIUS,
             "color": COLOR
         },
@@ -109,22 +103,14 @@ function mouse_paint(event)
 
 function mouse_down(event)
 {
-    /*var rect = canvas.getBoundingClientRect();*/
-    prevcanvasX = event.pageX - canvas.offsetLeft;
-    prevcanvasY = event.pageY - canvas.offsetTop;
-    
-    
     draw_enabled = true;
 }
 
 function mouse_move(event)
 {
 
-    postcanvasX = event.pageX - canvas.offsetLeft;
-    postcanvasY = event.pageY - canvas.offsetTop;
-
     if(draw_enabled){ 
-        
+
         mouse_paint(event);
     }   
 }
@@ -132,7 +118,7 @@ function mouse_move(event)
 function mouse_up(event)
 {    
     draw_enabled = false;
-    
+
 }
 
 function downloadCanvas(link, canvas, filename) {
