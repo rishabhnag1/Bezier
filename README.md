@@ -12,3 +12,10 @@ A NodeJS/ExpressJS/AngularJS white-boarding application, using Socket.IO to allo
   node server.js
 
 3) Navigate to http://localhost:8080/
+
+# Usage
+1) Enter a name for your whiteboard session.
+2) You can switch colors, increase/decrease brush size, export your whiteboard as a png, or clear your whiteboard entirely.
+3) To share your whiteboard with others and collaborate, send them the link to your whiteboard.
+4) If you'd like to start a new room, navigate back to the landing page, and enter a new name.
+5) You can have multiple rooms running at the same time with different people collaboarting between them.
