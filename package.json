@@ -1,0 +1,18 @@
+{
+  "name": "Bezier",
+  "version": "1.0.0",
+  "description": "Collaraborative whiteboarding application for brainstorming on the go.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Rishabh Nag",
+  "license": "None",
+  "dependencies": {
+    "colors": "^1.0.3",
+    "express": "^4.11.2",
+    "node-twitter": "^0.5.2",
+    "socket.io": "^1.3.3"
+  }
+}

@@ -1,0 +1,91 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <link rel="icon" 
+              type="image/png" 
+              href="images/favicon.png">
+        <title>Bezier</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+        <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles/app.css" type="text/css" />
+        <link rel="stylesheet" href= "styles/draw.css" type= "text/css" />
+    
+
+        <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+        <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>        
+        <script src="scripts/draw.js"></script>
+        <script src="scripts/jscolor.min.js"></script>
+        <script src="scripts/roomList.js"></script>
+       
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+
+    </head>
+    <body ng-app="roomList"> 
+        <canvas id="canvas"></canvas>
+        <div ng-controller="roomController">
+            <div class="header">
+                <div class="team-menu"><img id = "logo" class ="img-responsive" src= "images/logo.png" ></div>
+                <div class="channel-menu"><span class="channel-menu_name" ng-cloak>{{currentroom.current}}</span></div>
+            </div>
+
+
+            <div class="listings">                
+                <div class= "toolset">
+                    <h2 class="listings_header">Tools</h2>
+                    <div class = "text-center container-fluid">
+                        <div class ="tools row">
+                                                        
+                            <div class = "col-md-12">
+                                <input id="size1" type="text" size="5" value="10 px"/>
+                                <input data-toggle="tooltip" data-placement="bottom" title="Change Brush/Eraser Size" id="slider1" type="range" min="0" value = "10" max="50" step="1" onchange="increase_brush_size(this.value)"/>    
+                            </div>
+                            <div class = "col-md-12">
+                                <div id="buttons"> 
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Black" onclick="change_color('black');" type="button" id = "black" class="btn btn-primary"></button>
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Blue" onclick="change_color('blue');" type="button" id="blue" class="btn btn-primary"></button>
+                                </div>   
+                            </div>
+                            <div class = "col-md-12">
+                                <div id="buttons"> 
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Green" onclick="change_color('green');" type="button" id = "green" class="btn btn-primary"></button>
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Red" onclick="change_color('red');" type="button" id="red" class="btn btn-primary"></button>
+                                </div>   
+                            </div>
+                            <div class = "col-md-12">
+                                <div id="buttons"> 
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Purple" onclick="change_color('purple');" type="button" id = "purple" class="btn btn-primary"></button>
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Color Picker" type="button" id="eyedropper" class="btn btn-primary jscolor {valueElement:'chosen-value', onFineChange:'change_color_picker(this)'}"></button>
+                                </div>   
+                            </div>  
+                            <div class = "col-md-12">
+                                <div id="buttons">                                     
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Clear Whiteboard" onclick="clear_room();" type="button" id="wipe" class="btn btn-primary"></button>
+                                    <button data-toggle="tooltip" data-placement="bottom" title="Eraser" onclick="change_color('white');" type="button" id="eraser" class="btn btn-primary"></button>
+                                    <a id = "download" ><button data-toggle="tooltip" data-placement="bottom" title="Export Whiteboard" type="button" id="downloadbtn" class="btn btn-primary"></button></a>
+                                </div>   
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>      
+        </div>
+        <div class="footer">
+            <div class="user-menu"><p>Created by: Rishabh Nag</p></div>
+            <div class="input-box"> 
+                
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="tooltip"]').tooltip();   
+            });
+        </script>
+    </body>
+</html>
